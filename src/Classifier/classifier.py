@@ -43,7 +43,7 @@ def computeMAP(forest):
         sorted(tuples, key=lambda x: x[1], reverse=True)
 
         k = 1
-        AveP = 0.
+        Avep = 0.
         for i in range(len(tuples)):
             if tuples[i][0] in vs:
                 Avep += float(k)/i

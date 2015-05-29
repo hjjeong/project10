@@ -69,10 +69,6 @@ class AuthorSimilairty(JaccardSimilarity):
         jaccard_sim.append(jarccardSimilarity.compute_jaccard_sim(abb_name_from_author, abb_swithced_name_from_author_paper))
         jaccard_sim.append(jarccardSimilarity.compute_jaccard_sim(abb_name_from_author_paper, abb_swithced_name_from_author))
         jaccard_sim.append(jarccardSimilarity.compute_jaccard_sim(abb_swithced_name_from_author,abb_swithced_name_from_author_paper))
-        print 'jaccard sim[0]'+str(jaccard_sim[0])
-        print 'jaccard_sim[1]'+str(jaccard_sim[1])
-        print 'jaccard_sim[2]'+str(jaccard_sim[2])
-        print 'jaccard_sim[3]'+str(jaccard_sim[3])
         return max(jaccard_sim)
         
         

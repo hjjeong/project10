@@ -35,8 +35,20 @@ class FileProcessor:
         for line in train_file.read().splitlines():
             line_split = line.split('#')
             train_author_id_list.append(line_split[0])
+        train_file.close()
         return train_author_id_list
        
+    def get_train_data_list(self):
+        train_file = open(self.train_filepath)
+        train_data_list = []
+        
+        for line in train_file.read().splitlines():
+            line_split = line.split('#')
+            train_data_list.append(line_split)
+            
+        train_file.close()
+        return train_data_list
+            
     def get_train_paper_id_list(self, author_id):
         train_file = open(self.train_filepath)
         train_paper_list = []
@@ -81,7 +93,6 @@ class FileProcessor:
                 author_paper_name = line_split[2]
                 cnt = cnt+1
         author_paper_file.close()
-        print "get_name_authorpaper_cnt"+str(cnt)
         return author_paper_name
     
     def get_affiliation_from_author(self, author_id):
@@ -106,7 +117,6 @@ class FileProcessor:
                 author_paper_affiliation = line_split[3]
                 cnt = cnt+1
         author_paper_file.close()
-        print "get_name_authorpaper_"+str(cnt)
         return author_paper_affiliation        
             
             

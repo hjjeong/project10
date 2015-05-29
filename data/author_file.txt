@@ -2,4 +2,3 @@
 2#K. MORIBE
 3#A. Kuroiwa#Department of Molecular Biology|School of Science|Nagoya University
 4#Buzz Aldrin#Purdue University, West Lafayette, Indiana 47907-2023
-

@@ -2,19 +2,18 @@ import numpy as np
 np.random.seed(0)
 
 from sklearn.ensemble import RandomForestClassifier
-
-def make_feature_vector(authorID, papaerID):
-    pass
+from FeatureSelection.FileProcessor import FileProcessor
+from FeatureSelection.Feature import Feature
 
 def computeMAP(forest):
-    fValid = open("data/Valid.csv", 'r')
-    fValidSol = open("data/ValidSolution.csv", 'r')
+    fValid = open("../../data/Valid.csv", 'r')
+    fValidSol = open("../../data/ValidSolution.csv", 'r')
     # read out the first headline from each database, and then ignore
     fValid.readline();
     fValidSol.readline();
 
     N, MAP = 0, 0; 
-
+    feature = Feature()
     while 1:
         ValidLine = fValid.readline()
         ValidSolLine = fValidSol.readline()
@@ -34,7 +33,7 @@ def computeMAP(forest):
       
         # construct feature matrix of size [n_samples X n_features
         # and then run it with random_forest to produces probabilities
-        X = [make_feature_vector(v[0],v[i]) for i in range(1, len(v))]
+        X = [feature.get_feature_vector(v[0],v[i]) for i in range(1, len(v))]
         Y = forest.predict_proba(X)
 
         # combine the output probabilities with original paperlist as tuples,
@@ -55,14 +54,21 @@ def computeMAP(forest):
 
 if __name__ == "__main__":
     # initialize random_forest classifier with given parameters (parameter tuning needed)
+    feature = Feature()
     forest = RandomForestClassifier(n_estimators=10)
 
     # X is a feature matrix of size [n_samples, n_features]
     # Y is a output matrix of size [n_samples, n_outputs]
-    X = [], Y = []
 
+    fileProcessor = FileProcessor()
+    train_data_list = fileProcessor.get_train_data_list()
+    
+    for i in range(len(train_data_list)):
+        author_id = train_data_list[i][0]
+        paper_id = train_data_list[i][1]
+        X, Y = feature.get_feature_vector(author_id, paper_id)
     # have the classifier learn from inputs and outputs, say X and Y
     forest.fit(X, Y)
 
     # after having finished learning, examine the accuracy of classifier using MAP metric
-    computeMAP(forest)
+    #computeMAP(forest)

@@ -7,9 +7,7 @@ from FeatureSelection.JaccardSimilarity import JaccardSimilarity
 from FeatureSelection.FileProcessor import FileProcessor
 
 class AffiliationSimilarity(JaccardSimilarity):
-    '''
-    classdocs
-    '''
+    '''AffiliationSimilarity'''
     def __init__(self):
         '''
         Constructor

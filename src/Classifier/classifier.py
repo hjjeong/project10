@@ -50,7 +50,7 @@ def computeMAP(forest):
         Avep /= min(len(tuples), len(vs))
         MAP += Avep
 
-    return MAP
+    return MAP/N
 
 if __name__ == "__main__":
     # initialize random_forest classifier with given parameters (parameter tuning needed)
@@ -61,14 +61,24 @@ if __name__ == "__main__":
     # Y is a output matrix of size [n_samples, n_outputs]
 
     fileProcessor = FileProcessor()
-    train_data_list = fileProcessor.get_train_data_list()
-    
-    for i in range(len(train_data_list)):
-        author_id = train_data_list[i][0]
-        paper_id = train_data_list[i][1]
-        X, Y = feature.get_feature_vector(author_id, paper_id)
+    #fileProcessor.get_author_id_list()
+    train_author_list = fileProcessor.get_train_author_id_list()
+    Y = []
+    for i in range(len(train_author_list)):
+        author_id = train_author_list[i]
+        confirmed_paper_id_list= fileProcessor.get_train_confirmedpaper_id_list(author_id)
+        for paper_id in confirmed_paper_id_list:
+            X = feature.get_feature_vector(author_id, paper_id)
+            Y.append(1)
+        deleted_paper_id_list = fileProcessor.get_train_deleteedpaper_id_list(author_id)
+        for deleted_id in deleted_paper_id_list:
+            X+=feature.get_feature_vector(author_id, deleted_paper_id_list)
+            Y.append(-1)
+    #print X
+    #print Y
     # have the classifier learn from inputs and outputs, say X and Y
     forest.fit(X, Y)
-
+    print 'train done'
     # after having finished learning, examine the accuracy of classifier using MAP metric
-    #computeMAP(forest)
+    map_score = computeMAP(forest)
+    print 'map_score: '+str(map_score)

@@ -14,12 +14,12 @@ class AuthorSimilairty(JaccardSimilarity):
     select first name
     switched name compare
     '''  
-    trainfilepath = "D:\workspaceCouseWalk\author.csv"
-    testfilepath = "D:\workspaceCouseWalk\author.csv"
+    
     def __init__(self):
         JaccardSimilarity.__init__(self)
         
     def switch_author_name(self,author_name):
+        #print 'author_name'+str(author_name)
         author_split = author_name.split()
         switch_author_name = ""
         for i in range(len(author_split)):

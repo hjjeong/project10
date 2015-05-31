@@ -20,8 +20,5 @@ class Feature:
         affiliation_sim = affiliationSimilarity.getAffiliationSimilarity(author_id)
         
         feature_X = []
-        feature_Y = []
-        
         feature_X.append([jaccard_sim, affiliation_sim])
-        feature_Y.append(1)
-        return feature_X, feature_Y
+        return feature_X
